@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.openapitools.codegen.csharp;
+package org.openapitools.codegen.csharpnetcore;
 
 import org.openapitools.codegen.languages.CSharpNetCoreClientCodegen;
 import org.testng.Assert;
@@ -23,18 +23,19 @@ import org.testng.annotations.Test;
 public class CSharpNetCoreClientCodegenTest {
 
     @Test
-    public void testToEnumVarName() throws Exception {
+    public void testToEnumVarName() {
         final CSharpNetCoreClientCodegen codegen = new CSharpNetCoreClientCodegen();
         codegen.processOpts();
 
         Assert.assertEquals(codegen.toEnumVarName("FooBar", "string"), "FooBar");
         Assert.assertEquals(codegen.toEnumVarName("fooBar", "string"), "FooBar");
+
         Assert.assertEquals(codegen.toEnumVarName("foo-bar", "string"), "FooBar");
         Assert.assertEquals(codegen.toEnumVarName("foo_bar", "string"), "FooBar");
         Assert.assertEquals(codegen.toEnumVarName("foo bar", "string"), "FooBar");
 
-        // The below cases do not work currently, camelize doesn't support uppercase
-        // Assert.assertEquals(codegen.toEnumVarName("FOO-BAR", "string"), "FooBar");
-        // Assert.assertEquals(codegen.toEnumVarName("FOO_BAR", "string"), "FooBar");
+        Assert.assertEquals(codegen.toEnumVarName("FOO-BAR", "string"), "FooBar");
+        Assert.assertEquals(codegen.toEnumVarName("FOO_BAR", "string"), "FooBar");
+        Assert.assertEquals(codegen.toEnumVarName("FOO BAR", "string"), "FooBar");
     }
 }

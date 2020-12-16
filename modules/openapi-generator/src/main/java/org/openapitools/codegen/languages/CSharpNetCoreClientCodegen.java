@@ -788,6 +788,13 @@ public class CSharpNetCoreClientCodegen extends AbstractCSharpCodegen {
 
         // string
         String var = value.replaceAll(" ", "_");
+
+        // If all upper-case, convert to lowercase before camelize
+        if (var.matches("[A-Z_\\W]+"))
+        {
+            var = var.toLowerCase();
+        }
+
         var = camelize(var);
         var = var.replaceAll("\\W+", "");
 
